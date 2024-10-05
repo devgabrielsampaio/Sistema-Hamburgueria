@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block body %}
+<form method="POST" action="" class="border p-5 mt-2">
+        {{formfinalizacaovendas.csrf_token}}
+        <div class="form-group">
+            {{formfinalizacaovendas.total.label(class="form-control-label")}}
+            {%if formfinalizacaovendas.total.errors %}
+                {{formfinalizacaovendas.total (class="form-control is-invalid")}}
+            <div class="invalide-feedback">
+                {% for erro in formfinalizacaovendas.total.errors %}
+                    {{erro}}
+                {% endfor %}
+            </div>
+            {%else%}
+                {{formfinalizacaovendas.total (class="form-control")}}
+            {%endif%}
+        </div>
+        <div class="form-group">
+            {{formfinalizacaovendas.valor_cliente.label (class="form-control-label")}}
+            {%if formfinalizacaovendas.valor_cliente.errors %}
+                {{formfinalizacaovendas.valor_cliente (class="form-control is-invalid")}}
+            <div class="invalide-feedback">
+                {% for erro in formfinalizacaovendas.valor_cliente.errors %}
+                    {{erro}}
+                {% endfor %}
+            </div>
+            {%else%}
+                {{formfinalizacaovendas.valor_cliente (class="form-control")}}
+            {%endif%}
+
+        </div>
+        {{formfinalizacaovendas.btn_finalizacao (class="btn btn-primary mt-3")}}
+    </form>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block body %}
+<form method="POST" action="" class="border p-5 mt-2">
+        {{form_relatorioProdutos.csrf_token}}
+        <div class="form-group">
+            {{form_relatorioProdutos.nome.label(class="form-control-label")}}
+            {%if form_relatorioProdutos.nome.errors %}
+                {{form_relatorioProdutos.nome (class="form-control is-invalid")}}
+            <div class="invalide-feedback">
+                {% for erro in form_relatorioProdutos.nome.errors %}
+                    {{erro}}
+                {% endfor %}
+            </div>
+            {%else%}
+                {{form_relatorioProdutos.nome (class="form-control")}}
+            {%endif%}
+        </div>
+        {{form_relatorioProdutos.botao_gerarRelatorio (class="btn btn-primary mt-3")}}
+    </form>
+
+
+{% endblock %}

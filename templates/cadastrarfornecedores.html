@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+{% block body %}
+<form method="POST" action="" class="border p-5 mt-2">
+    {{form_cadastrarfornecedores.csrf_token}}
+     <div class="form-group">
+         {{form_cadastrarfornecedores.nome.label(class="form-control-label")}}
+            {%if form_cadastrarfornecedores.nome.errors %}
+                {{form_cadastrarfornecedores.nome (class="form-control is-invalid")}}
+            <div class="invalide-feedback">
+                {% for erro in form_cadastrarfornecedores.nome.errors %}
+                    {{erro}}
+                {% endfor %}
+            </div>
+            {%else%}
+                {{form_cadastrarfornecedores.nome (class="form-control")}}
+            {%endif%}
+     </div>
+     <div class="form-group">
+         {{form_cadastrarfornecedores.telefone.label(class="form-control-label")}}
+            {%if form_cadastrarfornecedores.telefone.errors %}
+                {{form_cadastrarfornecedores.telefone (class="form-control is-invalid")}}
+            <div class="invalide-feedback">
+                {% for erro in form_cadastrarfornecedores.telefone.errors %}
+                    {{erro}}
+                {% endfor %}
+            </div>
+            {%else%}
+                {{form_cadastrarfornecedores.telefone (class="form-control",onkeypress="$(this).mask('(00) 00000-0000')")}}
+            {%endif%}
+     </div>
+    <div class="form-group">
+         {{form_cadastrarfornecedores.cnpj.label(class="form-control-label")}}
+            {%if form_cadastrarfornecedores.cnpj.errors %}
+                {{form_cadastrarfornecedores.cnpj (class="form-control is-invalid")}}
+            <div class="invalide-feedback">
+                {% for erro in form_cadastrarfornecedores.cnpj.errors %}
+                    {{erro}}
+                {% endfor %}
+            </div>
+            {%else%}
+                {{form_cadastrarfornecedores.cnpj (class="form-control",onkeypress="$(this).mask('99.999.999/9999-99')")}}
+            {%endif%}
+     </div>
+    <div class="form-group">
+         {{form_cadastrarfornecedores.cep.label(class="form-control-label")}}
+            {%if form_cadastrarfornecedores.cep.errors %}
+                {{form_cadastrarfornecedores.cep (class="form-control is-invalid")}}
+            <div class="invalide-feedback">
+                {% for erro in form_cadastrarfornecedores.cep.errors %}
+                    {{erro}}
+                {% endfor %}
+            </div>
+            {%else%}
+                {{form_cadastrarfornecedores.cep (class="form-control",onkeypress="$(this).mask('00000-000')")}}
+            {%endif%}
+     </div>
+    <div class="form-group">
+         {{form_cadastrarfornecedores.logradouro.label(class="form-control-label")}}
+            {%if form_cadastrarfornecedores.logradouro.errors %}
+                {{form_cadastrarfornecedores.logradouro (class="form-control is-invalid")}}
+            <div class="invalide-feedback">
+                {% for erro in form_cadastrarfornecedores.logradouro.errors %}
+                    {{erro}}
+                {% endfor %}
+            </div>
+            {%else%}
+                {{form_cadastrarfornecedores.logradouro (class="form-control")}}
+            {%endif%}
+     </div>
+    <div class="form-group">
+         {{form_cadastrarfornecedores.numero.label(class="form-control-label")}}
+            {%if form_cadastrarfornecedores.numero.errors %}
+                {{form_cadastrarfornecedores.numero (class="form-control is-invalid")}}
+            <div class="invalide-feedback">
+                {% for erro in form_cadastrarfornecedores.numero.errors %}
+                    {{erro}}
+                {% endfor %}
+            </div>
+            {%else%}
+                {{form_cadastrarfornecedores.numero (class="form-control")}}
+            {%endif%}
+     </div>
+    <div class="form-group">
+         {{form_cadastrarfornecedores.bairro.label(class="form-control-label")}}
+            {%if form_cadastrarfornecedores.bairro.errors %}
+                {{form_cadastrarfornecedores.bairro (class="form-control is-invalid")}}
+            <div class="invalide-feedback">
+                {% for erro in form_cadastrarfornecedores.bairro.errors %}
+                    {{erro}}
+                {% endfor %}
+            </div>
+            {%else%}
+                {{form_cadastrarfornecedores.bairro (class="form-control")}}
+            {%endif%}
+     </div><div class="form-group">
+         {{form_cadastrarfornecedores.cidade.label(class="form-control-label")}}
+            {%if form_cadastrarfornecedores.cidade.errors %}
+                {{form_cadastrarfornecedores.cidade (class="form-control is-invalid")}}
+            <div class="invalide-feedback">
+                {% for erro in form_cadastrarfornecedores.cidade.errors %}
+                    {{erro}}
+                {% endfor %}
+            </div>
+            {%else%}
+                {{form_cadastrarfornecedores.cidade (class="form-control")}}
+            {%endif%}
+     </div>
+    <div class="form-group">
+         {{form_cadastrarfornecedores.estado.label(class="form-control-label")}}
+            {%if form_cadastrarfornecedores.estado.errors %}
+                {{form_cadastrarfornecedores.estado (class="form-control is-invalid")}}
+            <div class="invalide-feedback">
+                {% for erro in form_cadastrarfornecedores.estado.errors %}
+                    {{erro}}
+                {% endfor %}
+            </div>
+            {%else%}
+                {{form_cadastrarfornecedores.estado (class="form-control")}}
+            {%endif%}
+     </div>
+    <div class="form-group">
+         {{form_cadastrarfornecedores.complemento.label(class="form-control-label")}}
+            {%if form_cadastrarfornecedores.complemento.errors %}
+                {{form_cadastrarfornecedores.complemento (class="form-control is-invalid")}}
+            <div class="invalide-feedback">
+                {% for erro in form_cadastrarfornecedores.complemento.errors %}
+                    {{erro}}
+                {% endfor %}
+            </div>
+            {%else%}
+                {{form_cadastrarfornecedores.complemento (class="form-control")}}
+            {%endif%}
+     </div>
+    {{form_cadastrarfornecedores.btn_cadastrar(class="btn btn-primary mt-3")}}
+    {{form_cadastrarfornecedores.btn_buscarcep(class="btn btn-primary mt-3")}}
+</form>
+{% endblock %}

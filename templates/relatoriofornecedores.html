@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block body %}
+<form method="POST" action="" class="border p-5 mt-2">
+        {{form_relatoriofornecedores.csrf_token}}
+        <div class="form-group">
+            {{form_relatoriofornecedores.cnpj.label(class="form-control-label")}}
+            {%if form_relatoriofornecedores.cnpj.errors %}
+                {{form_relatoriofornecedores.cnpj (class="form-control is-invalid")}}
+            <div class="invalide-feedback">
+                {% for erro in form_relatoriofornecedores.cnpj.errors %}
+                    {{erro}}
+                {% endfor %}
+            </div>
+            {%else%}
+                {{form_relatoriofornecedores.cnpj (class="form-control")}}
+            {%endif%}
+        </div>
+        {{form_relatoriofornecedores.botao_gerarRelatorio (class="btn btn-primary mt-3")}}
+    </form>
+{% endblock %}

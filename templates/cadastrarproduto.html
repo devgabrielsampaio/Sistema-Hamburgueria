@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block body %}
+<form method="POST" action="" class="border p-5 mt-2">
+    {{form_cadastrarproduto.csrf_token}}
+     <div class="form-group">
+         {{form_cadastrarproduto.nome.label(class="form-control-label")}}
+            {%if form_cadastrarproduto.nome.errors %}
+                {{form_cadastrarproduto.nome (class="form-control is-invalid")}}
+            <div class="invalide-feedback">
+                {% for erro in form_cadastrarproduto.nome.errors %}
+                    {{erro}}
+                {% endfor %}
+            </div>
+            {%else%}
+                {{form_cadastrarproduto.nome (class="form-control")}}
+            {%endif%}
+     </div>
+     <div class="form-group">
+         {{form_cadastrarproduto.descricao.label(class="form-control-label")}}
+            {%if form_cadastrarproduto.descricao.errors %}
+                {{form_cadastrarproduto.descricao (class="form-control is-invalid")}}
+            <div class="invalide-feedback">
+                {% for erro in form_cadastrarproduto.descricao.errors %}
+                    {{erro}}
+                {% endfor %}
+            </div>
+            {%else%}
+                {{form_cadastrarproduto.descricao (class="form-control")}}
+            {%endif%}
+     </div>
+     <div class="form-group">
+         {{form_cadastrarproduto.preco.label(class="form-control-label")}}
+            {%if form_cadastrarproduto.preco.errors %}
+                {{form_cadastrarproduto.preco (class="form-control is-invalid")}}
+            <div class="invalide-feedback">
+                {% for erro in form_cadastrarproduto.preco.errors %}
+                    {{erro}}
+                {% endfor %}
+            </div>
+            {%else%}
+                {{form_cadastrarproduto.preco(class="form-control")}}
+            {%endif%}
+     </div>
+    {{form_cadastrarproduto.btn_cadastrar(class="btn btn-primary mt-3")}}
+</form>
+
+
+{% endblock%}

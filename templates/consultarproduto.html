@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block body %}
+<form method="POST" action="" class="border p-5 mt-2">
+    {{form_consultar.csrf_token}}
+     <div class="form-group">
+         {{form_consultar.nome.label(class="form-control-label")}}
+            {%if form_consultar.nome.errors %}
+                {{form_consultar.nome (class="form-control is-invalid")}}
+            <div class="invalide-feedback">
+                {% for erro in form_consultar.nome.errors %}
+                    {{erro}}
+                {% endfor %}
+            </div>
+            {%else%}
+                {{form_consultar.nome (class="form-control")}}
+            {%endif%}
+     </div>
+    {{form_consultar.botao_consultar(class="btn btn-primary mt-3")}}
+</form>
+<table class="content-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Descrição</th>
+            <th>Preço</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in resultado %}
+          <tr>
+            <td>{{row[0]}}</td>
+            <td>{{row[1]}}</td>
+            <td>{{row[2]}}</td>
+            <td>R$ {{row[3]}}0</td>
+            <td><a class="btn btn-danger" href="/deletarproduto/{{row[0]}}"><i class="bi bi-trash"></i></a></td>
+            <td><a class="btn btn-success" href="/atualizarproduto/{{row[0]}}/{{row[1]}}/{{row[2]}}/{{row[3]}}"><i class="bi bi-pencil"></i></a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+{% endblock%}

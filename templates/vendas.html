@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% block body %}
+    <table id="original-table" class="content-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Preço</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for row in resultado %}
+              <tr>
+                <td>{{row[0]}}</td>
+                <td>{{row[1]}}</td>
+                <td>R$ {{row[2]}}0</td>
+                <td><a class="btn btn-success" onclick="copiarLinha(this)" ><i class="bi bi-plus-circle"></i></a></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+        </table>
+    <div id="caixinha">
+        <div class="scrollable-table">
+            <table id="caixinha-table" class="content-table">
+                    <thead>
+                      <tr>
+                        <th>Nome</th>
+                        <th>Preço</th>
+                          <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>{{nome}}</td>
+                        <td>{{preco}}</td>
+                      </tr>
+                    </tbody>
+            </table>
+            <table class="content-table">
+                <thead>
+                    <tr>
+                        <th scope="col">Total:</th>
+                        <th id="total" scope="col"></th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        </div>
+    <thead>
+    <script>
+     var total = 0;
+     var totalComponent=document.getElementById("total");
+     function copiarLinha(button) {
+        // Seleciona a tabela de destino
+        var caixinhaTable = document.getElementById('caixinha-table').getElementsByTagName('tbody')[0];
+
+        // Obtém a linha correspondente ao botão clicado
+        var originalRow = button.parentNode.parentNode;
+
+        // Cria uma nova linha para a tabela de destino
+        var newRow = document.createElement('tr');
+
+        // Copia as células Nome e Preço, excluindo a célula ID
+        var cells = originalRow.getElementsByTagName('td');
+        var nome = cells[1].innerHTML;
+        var precoText = cells[2].innerHTML;
+
+        // Extrai e converte o valor do preço para float
+        var preco = parseFloat(precoText.replace('R$', '').replace(',', '.').trim());
+        total += preco;
+        console.log(total);
+
+        // Cria as novas células para Nome e Preço
+        var nomeCell = document.createElement('td');
+        nomeCell.innerHTML = nome;
+        newRow.appendChild(nomeCell);
+
+        var precoCell = document.createElement('td');
+        precoCell.innerHTML = `R$ ${preco.toFixed(2)}`;
+        newRow.appendChild(precoCell);
+
+        // Adiciona um botão de remoção à nova linha
+        var removeCell = document.createElement('td');
+        removeCell.innerHTML = '<a class="btn btn-danger" onclick="removerLinha(this)"><i class="bi bi-trash"></i></a>';
+        newRow.appendChild(removeCell);
+
+        // Adiciona a nova linha à tabela de destino
+        caixinhaTable.appendChild(newRow);
+        totalComponent.textContent="R$ "+total.toFixed(2);
+    }
+
+    function removerLinha(button) {
+        // Remove a linha correspondente ao botão de remoção clicado
+        var row = button.parentNode.parentNode;
+        var precoText = row.getElementsByTagName('td')[1].innerHTML;
+        var preco = parseFloat(precoText.replace('R$', '').replace(',', '.').trim());
+        total -= preco;
+        row.parentNode.removeChild(row);
+        totalComponent.textContent="R$ "+total.toFixed(2);
+    }
+   var socket = io.connect('http://' + document.domain + ':' + location.port);
+
+        document.addEventListener('keydown', function(event) {
+            var key = event.key;
+            var totalString = total; // Exemplo de total_string, pode ser obtido dinamicamente
+            socket.emit('key_pressed', { key: key, total_string: totalString });
+        });
+
+        socket.on('key_response', function(data) {
+            console.log('Tecla recebida pelo servidor:', data.key);
+        });
+          socket.on('redirect', function(data) {
+            window.location.href = data.url;
+        });
+</script>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block body %}
+<form method="POST" action="" class="border p-5 mt-2">
+    {{form_consultarfornecedores.csrf_token}}
+     <div class="form-group">
+         {{form_consultarfornecedores.cnpj.label(class="form-control-label")}}
+            {%if form_consultarfornecedores.cnpj.errors %}
+                {{form_consultarfornecedores.cnpj (class="form-control is-invalid")}}
+            <div class="invalide-feedback">
+                {% for erro in form_consultarfornecedores.cnpj.errors %}
+                    {{erro}}
+                {% endfor %}
+            </div>
+            {%else%}
+                {{form_consultarfornecedores.cnpj (class="form-control",onkeypress="$(this).mask('99.999.999/9999-99')")}}
+            {%endif%}
+     </div>
+    {{form_consultarfornecedores.botao_consultar(class="btn btn-primary mt-3")}}
+</form>
+<table class="content-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Telefone</th>
+            <th>CNPJ</th>
+            <th>CEP</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in resultado %}
+          <tr>
+            <td>{{row[0]}}</td>
+            <td>{{row[1]}}</td>
+            <td>{{row[2]}}</td>
+            <td>{{row[3]}}</td>
+            <td>{{row[4]}}</td>
+            <td><a class="btn btn-danger" href="/deletarfornecedores/{{row[0]}}"><i class="bi bi-trash"></i></a></td>
+            <td><a class="btn btn-success" href="/atualizarfornecedores/{{row[0]}}"><i class="bi bi-pencil"></i></a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+{% endblock%}
